@@ -13,4 +13,3 @@ with sr.Microphone() as source:
         except:
             pass
         
-
