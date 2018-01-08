@@ -26,35 +26,45 @@ with sr.Microphone() as source:
         try:
             text = r.recognize_google(audio)
             print('You said: '+text)
-            if(text=='English' or text=='english' or text=='angrezi' or text=='Angrezi' or text=='angregi' or text=='Angregi' or text=='angreji' or text=='Angreji' ):
-                startmp3('eng.mp3',10)
-                print ('Say Something!')
-                audio = r.listen(source,timeout=2000)
-                print ('Done!')
-                try:
-                    text = r.recognize_google(audio)
-                    print('You said: '+text)
-                    os.system("mere.mp3")                    
-                except:
+            text=text.lower()
+            gr=text.split(' ')
+            gre=['english','angrezi','angregi']
+            grh=['hindi']
+            t=0
+            for i in gr:
+                for j in gre:
+                    if(i==j):
+                        startmp3('eng.mp3',10)
+                        print ('Say Something!')
+                        audio = r.listen(source,timeout=2000)
+                        print ('Done!')
+                        try:
+                            text = r.recognize_google(audio)
+                            print('You said: '+text)
+                            os.system("mere.mp3")                    
+                        except:
+                            pass
+                            os.system("thanks_en.mp3")
+                        t=1
+                        break
+                if(t==0):
+                    for j in grh:
+                        if(i==j):
+                            startmp3('hindi.mp3',5)
+                            print ('Say Something!')
+                            audio = r.listen(source,timeout=2000)
+                            print ('Done!')
+                            try:
+                                text = r.recognize_google(audio)
+                                print('You said: '+text)
+                                os.system("mere.mp3")                    
+                            except:
+                                pass
+                                os.system("thanks_en.mp3")                    
+                else:
+                    print('Try Again')
+                    startmp3('tryagain_hi.mp3',4)
                     pass
-                    os.system("thanks_en.mp3")
-
-            elif(text=='Hindi' or text=='hindi'):
-                startmp3('hindi.mp3',5)
-                print ('Say Something!')
-                audio = r.listen(source,timeout=2000)
-                print ('Done!')
-                try:
-                    text = r.recognize_google(audio)
-                    print('You said: '+text)
-                    os.system("mere.mp3")                    
-                except:
-                    pass
-                    os.system("thanks_en.mp3")                    
-            else:
-                print('Try Again')
-                startmp3('tryagain_hi.mp3',4)
-                pass
                 
         except:
             t=0
